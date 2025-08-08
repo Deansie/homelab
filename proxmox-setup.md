@@ -1,0 +1,42 @@
+## Proxmox Setup
+Proxmox VE is used as the hypervisor to manage virtual machines and containers. The cluster is configured for HA to prevent it going into readonly-state.
+- **Cluster Name**: ekedalaproxmox
+- **Nodes**: proxmox, proxmox2, proxmox3
+- **HA Configuration**: Enabled to ensure quorum to the cluster, no failover of VMs or containers are configured
+- **Containers**: 
+  - 102: unifi-controller
+  - 103: pihole
+- **Virtual Machines**: 
+  - 100: owncloud
+  - 101: jenkins-nginx-pm2-dockerregistry
+  - 104: pfsense
+  - 105: k8s-node-cp1
+  - 106: k8s-node-cp2
+  - 107: k8s-node-cp3
+  - 108: k8s-worker-149
+  - 109: k8s-worker-150
+  - 110: k8s-worker-156
+  - 111: k8s-worker-157
+  - 112: k8s-worker-165
+  - 113: k8s-worker-166
+  - 114: k8s-worker-167
+  - 115: k8s-worker-168
+  - 116: k8s-worker-169
+  - 117: k8s-worker-170
+  - 118: iventoy-pxe-bootloader
+  - 119: minecraft
+  - 120: batocera
+- **Templates**: 
+  - k8s-node-template
+- **Storage**: 
+  - proxmox
+    - local (Directory)
+    - tank (ZFS-pool Mirrored)
+    - tank-backups (Directory in tank)
+  - proxmox2
+    - local (Directory)
+    - tank2 (ZFS-pool Mirrored)
+    - tank-backups2 (Directory in tank2)
+  - proxmox3
+    - local (Directory)
+    - backup (Directory in local)
