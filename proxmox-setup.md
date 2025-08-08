@@ -1,5 +1,5 @@
 ## Proxmox Setup
-Proxmox VE is used as the hypervisor to manage virtual machines and containers. The cluster is configured for HA to prevent it going into readonly-state.
+Proxmox VE 8.4.0 is used as the hypervisor to manage virtual machines and containers. The cluster is configured for HA to prevent it going into readonly-state.
 - **Cluster Name**: ekedalaproxmox
 - **Nodes**: proxmox, proxmox2, proxmox3
 - **HA Configuration**: Enabled to ensure quorum to the cluster, no failover of VMs or containers are configured

@@ -7,6 +7,9 @@ both configured for high availability (HA) to ensure resilience and uptime. This
 ### hardware.md
 - Specifies all the hardware currently running in the lab.
 
+### proxmox-setup.md
+- This document outlines the Proxmox VE setup, reasons for HA, virtual machines, containers, storage etc.
+
 ### jenkins-pipeline-example.md
 - Showcases one of my pipelines written in Groovy, with the purpose of deploying an application to the k8s-cluster via Jenkins.
 
