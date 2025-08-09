@@ -52,7 +52,7 @@ Kubernetes is deployed atop **Proxmox virtual machines**, enabling resilient inf
 - **Ingress:** Deployed via ingress-nginx controller, exposed externally with NodePort and VIP
 
 
-### Storage (Proxmox style, typical setups)
+### Storage
 
 - **Persistent Volumes:** Configured to ZFS-pool (tank)
 - **Volume Provisioning:** Managed by PVCs
@@ -60,7 +60,7 @@ Kubernetes is deployed atop **Proxmox virtual machines**, enabling resilient inf
 
 ### Monitoring \& Observability
 
-- **Prometheus:** Collection of metrics from all nodes/pods (alerting enabled)
+- **Prometheus:** Collection of metrics from all nodes/pods 
 - **Grafana:** Cluster/project dashboards for visualization
 - **Logs:** Ingress, system, and workload logs accessible via kubectl
 - **Node Exporter:** Hardware/system metrics for each node
@@ -71,10 +71,10 @@ Kubernetes is deployed atop **Proxmox virtual machines**, enabling resilient inf
 
 Applications scheduled on worker nodes:
 
-- **deansie-wordle-backend/frontend:** Scaled web apps
+- **deansie-wordle-backend/frontend:**  Web application
 - **kvikkjokk-nextjs:** Next.js server-side application
-- **MongoDB:** Stateful database with persistent volumes
-- **ingress-nginx:** Central HTTP(S) routing for all exposed services
+- **MongoDB:** Database as deployment with persistent volumes
+- **ingress-nginx:** Central HTTP routing for all exposed services
 
 ***
 
@@ -110,7 +110,6 @@ http://192.168.0.201:30080 (keepalived VIP)
     - Storage in a root-only, permission-restricted `/backup/etcd` directory on `k8s-cp3`, with plans to replicate backups to a distributed ZFS pool or external storage for added resilience..
     - Automatic retention policy to keep the last 5 backup days (`find ... -mtime +5 -delete`).
     - Permission and ownership checks to ensure backup integrity.
-    - On completion, script lists all current backup files and logs a success message.
 - **Best Practice:** Scheduled backup/retention follows Kubernetes disaster recovery guidelines; fully automated, root-secured, and tested via file listing and error handling for every backup operation.
 
 ***
