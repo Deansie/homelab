@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"prometheus-alertmanager-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"5Gi"},"local":{"path":"/mnt/prometheus-alertmanager-data"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["k8s"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage"}}
+    pv.kubernetes.io/bound-by-controller: "yes"
+  creationTimestamp: "2025-06-25T19:48:04Z"
+  finalizers:
+  - kubernetes.io/pv-protection
+  name: prometheus-alertmanager-pv
+  resourceVersion: "1664165"
+  uid: e626c20e-890d-4050-a8de-2accab58d771
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: storage-prometheus-alertmanager-0
+    namespace: monitoring
+    resourceVersion: "1663273"
+    uid: 2b9f34c2-7a44-41c3-9eea-4b20376b31ef
+  local:
+    path: /mnt/prometheus-alertmanager-data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - k8s
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  volumeMode: Filesystem
+status:
+  phase: Bound

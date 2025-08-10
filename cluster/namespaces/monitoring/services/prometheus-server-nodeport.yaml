@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2025-06-26T11:04:57Z"
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/part-of: prometheus
+    app.kubernetes.io/version: v3.4.1
+    helm.sh/chart: prometheus-27.22.0
+  name: prometheus-server-nodeport
+  namespace: monitoring
+  resourceVersion: "1832450"
+  uid: 8efa0867-5674-49ff-8f2d-df4aa1bfc8d0
+spec:
+  clusterIP: 10.98.111.129
+  clusterIPs:
+  - 10.98.111.129
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 32217
+    port: 80
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/name: prometheus
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

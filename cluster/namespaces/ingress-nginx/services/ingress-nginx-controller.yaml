@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"ingress-nginx-controller","namespace":"ingress-nginx"},"spec":{"ports":[{"name":"http","nodePort":30080,"port":80,"targetPort":80},{"name":"https","nodePort":30443,"port":443,"targetPort":443}],"selector":{"app.kubernetes.io/component":"controller","app.kubernetes.io/instance":"ingress-nginx","app.kubernetes.io/name":"ingress-nginx"},"type":"NodePort"}}
+  creationTimestamp: "2025-06-19T16:33:13Z"
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  resourceVersion: "525155"
+  uid: 4313dbaf-1388-449e-9eb4-b051a6da3f62
+spec:
+  clusterIP: 10.110.15.193
+  clusterIPs:
+  - 10.110.15.193
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    nodePort: 30080
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: https
+    nodePort: 30443
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  selector:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/name: ingress-nginx
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: monitoring
+    prometheus.io/scrape: "true"
+  creationTimestamp: "2025-06-25T20:53:04Z"
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: prometheus-node-exporter
+    app.kubernetes.io/part-of: prometheus-node-exporter
+    app.kubernetes.io/version: 1.9.1
+    helm.sh/chart: prometheus-node-exporter-4.47.0
+  name: prometheus-prometheus-node-exporter
+  namespace: monitoring
+  resourceVersion: "1677358"
+  uid: aea414eb-0237-4b3e-abd5-f7295d7d02ff
+spec:
+  clusterIP: 10.100.6.156
+  clusterIPs:
+  - 10.100.6.156
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: metrics
+    port: 9100
+    protocol: TCP
+    targetPort: 9100
+  selector:
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/name: prometheus-node-exporter
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/ssl-redirect":"false"},"name":"deansie-wordle-ingress","namespace":"default"},"spec":{"ingressClassName":"nginx","rules":[{"host":"deansie-wordle.ekedala-services.se","http":{"paths":[{"backend":{"service":{"name":"deansie-wordle-frontend-service","port":{"number":80}}},"path":"/","pathType":"Prefix"},{"backend":{"service":{"name":"deansie-wordle-backend-service","port":{"number":80}}},"path":"/api","pathType":"Prefix"}]}}]}}
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2025-07-18T17:18:01Z"
+  generation: 1
+  name: deansie-wordle-ingress
+  namespace: default
+  resourceVersion: "7689555"
+  uid: 19d1e5df-9c27-45b8-af7b-13f5ca9c2383
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: deansie-wordle.ekedala-services.se
+    http:
+      paths:
+      - backend:
+          service:
+            name: deansie-wordle-frontend-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+      - backend:
+          service:
+            name: deansie-wordle-backend-service
+            port:
+              number: 80
+        path: /api
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.110.15.193

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},"labels":{"k8s-app":"flannel","pod-security.kubernetes.io/enforce":"privileged"},"name":"kube-flannel"}}
+  creationTimestamp: "2025-06-16T19:48:38Z"
+  labels:
+    k8s-app: flannel
+    kubernetes.io/metadata.name: kube-flannel
+    pod-security.kubernetes.io/enforce: privileged
+  name: kube-flannel
+  resourceVersion: "618"
+  uid: c5fd5f95-3ca0-4c92-b1b3-5e8de6b04c1a
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"prometheus-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"20Gi"},"local":{"path":"/mnt/prometheus-data"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["k8s"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage"}}
+    pv.kubernetes.io/bound-by-controller: "yes"
+  creationTimestamp: "2025-06-25T20:51:58Z"
+  finalizers:
+  - kubernetes.io/pv-protection
+  name: prometheus-pv
+  resourceVersion: "1677406"
+  uid: 28cdf09b-de10-4c0b-b9fe-1ec87aa05039
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 20Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: prometheus-server
+    namespace: monitoring
+    resourceVersion: "1677334"
+    uid: b435a997-28ca-4af7-85c2-280716a544ae
+  local:
+    path: /mnt/prometheus-data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - k8s
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  volumeMode: Filesystem
+status:
+  phase: Bound

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"NetworkPolicy","metadata":{"annotations":{},"name":"allow-mongodb-egress","namespace":"default"},"spec":{"egress":[{"ports":[{"port":27017,"protocol":"TCP"}],"to":[{"ipBlock":{"cidr":"192.168.0.82/32"}}]}],"podSelector":{"matchLabels":{"app":"deansie-wordle-backend"}},"policyTypes":["Egress"]}}
+  creationTimestamp: "2025-07-16T18:52:20Z"
+  generation: 1
+  name: allow-mongodb-egress
+  namespace: default
+  resourceVersion: "7179273"
+  uid: 705fc1f6-079a-47ad-b723-ca6191639b9b
+spec:
+  egress:
+  - ports:
+    - port: 27017
+      protocol: TCP
+    to:
+    - ipBlock:
+        cidr: 192.168.0.82/32
+  podSelector:
+    matchLabels:
+      app: deansie-wordle-backend
+  policyTypes:
+  - Egress

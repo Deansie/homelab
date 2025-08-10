@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: monitoring
+  creationTimestamp: "2025-06-25T20:53:04Z"
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/part-of: prometheus
+    app.kubernetes.io/version: v3.4.1
+    helm.sh/chart: prometheus-27.22.0
+  name: prometheus-server
+  namespace: monitoring
+  resourceVersion: "1677327"
+  uid: e52f9d96-8bbe-4114-a1b6-95031cf574e1

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"name":"grafana","namespace":"monitoring"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"12Gi"}},"storageClassName":"local-storage"}}
+    pv.kubernetes.io/bind-completed: "yes"
+    pv.kubernetes.io/bound-by-controller: "yes"
+  creationTimestamp: "2025-06-25T20:48:18Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  name: grafana
+  namespace: monitoring
+  resourceVersion: "1677718"
+  uid: a70a6cca-4f7e-4bf4-86d4-d92eb3d49735
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 12Gi
+  storageClassName: local-storage
+  volumeMode: Filesystem
+  volumeName: grafana-pv
+status:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 12Gi
+  phase: Bound

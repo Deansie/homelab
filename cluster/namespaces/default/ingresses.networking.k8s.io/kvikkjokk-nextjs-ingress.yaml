@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/rewrite-target":"/","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"name":"kvikkjokk-nextjs-ingress","namespace":"default"},"spec":{"ingressClassName":"nginx","rules":[{"host":"kvikkjokk-nextjs.ekedala-services.se","http":{"paths":[{"backend":{"service":{"name":"kvikkjokk-nextjs-service","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]}}
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2025-06-19T16:44:14Z"
+  generation: 2
+  name: kvikkjokk-nextjs-ingress
+  namespace: default
+  resourceVersion: "534205"
+  uid: cb36326c-9ca3-41a8-ba2d-1dfeb01b6722
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: kvikkjokk-nextjs.ekedala-services.se
+    http:
+      paths:
+      - backend:
+          service:
+            name: kvikkjokk-nextjs-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.110.15.193
