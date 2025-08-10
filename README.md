@@ -16,3 +16,7 @@ This documentation is an ongoing process, and will be update along with changes 
 
 - **kubernetes.md**
   Describes the **Kubernetes cluster** deployment atop Proxmox VMs, featuring a multi-master HA control plane, Keepalived-managed VIP for failover, Flannel CNI for networking, and a robust monitoring stack with Prometheus and Grafana. It also covers backup strategies and workload management for resilient container orchestration.
+
+## Future Implementations
+
+As I grow my DevOps skills, I plan to explore **GitOps** and **Terraform** to enhance automation and infrastructure management in my homelab. These tools will build on my existing Proxmox and Kubernetes setup, helping me create more scalable, reproducible, and resilient systems. Since I’m still learning these technologies, my focus is on understanding their core concepts and experimenting with basic integrations first.
