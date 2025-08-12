@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"NetworkPolicy","metadata":{"annotations":{},"name":"allow-all-egress","namespace":"default"},"spec":{"egress":[{}],"podSelector":{},"policyTypes":["Egress"]}}
+  creationTimestamp: "2025-07-16T18:59:03Z"
+  generation: 1
+  name: allow-all-egress
+  namespace: default
+  resourceVersion: "7180499"
+  uid: 86b98e70-6c71-4fd8-a154-ec83e8844335
+spec:
+  egress:
+  - {}
+  podSelector: {}
+  policyTypes:
+  - Egress

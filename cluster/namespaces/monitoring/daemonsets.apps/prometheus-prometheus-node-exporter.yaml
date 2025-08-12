@@ -1,0 +1,151 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  annotations:
+    deprecated.daemonset.template.generation: "1"
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: monitoring
+  creationTimestamp: "2025-06-25T20:53:04Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: prometheus-node-exporter
+    app.kubernetes.io/part-of: prometheus-node-exporter
+    app.kubernetes.io/version: 1.9.1
+    helm.sh/chart: prometheus-node-exporter-4.47.0
+  name: prometheus-prometheus-node-exporter
+  namespace: monitoring
+  resourceVersion: "10722841"
+  uid: 85976b79-2ba4-4190-a905-76eaf4be7afe
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: prometheus
+      app.kubernetes.io/name: prometheus-node-exporter
+  template:
+    metadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/component: metrics
+        app.kubernetes.io/instance: prometheus
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: prometheus-node-exporter
+        app.kubernetes.io/part-of: prometheus-node-exporter
+        app.kubernetes.io/version: 1.9.1
+        helm.sh/chart: prometheus-node-exporter-4.47.0
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: eks.amazonaws.com/compute-type
+                operator: NotIn
+                values:
+                - fargate
+              - key: type
+                operator: NotIn
+                values:
+                - virtual-kubelet
+      automountServiceAccountToken: false
+      containers:
+      - args:
+        - --path.procfs=/host/proc
+        - --path.sysfs=/host/sys
+        - --path.rootfs=/host/root
+        - --path.udev.data=/host/root/run/udev/data
+        - --web.listen-address=[$(HOST_IP)]:9100
+        env:
+        - name: HOST_IP
+          value: 0.0.0.0
+        image: quay.io/prometheus/node-exporter:v1.9.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 9100
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: node-exporter
+        ports:
+        - containerPort: 9100
+          name: metrics
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 9100
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /host/proc
+          name: proc
+          readOnly: true
+        - mountPath: /host/sys
+          name: sys
+          readOnly: true
+        - mountPath: /host/root
+          mountPropagation: HostToContainer
+          name: root
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+      hostPID: true
+      nodeSelector:
+        kubernetes.io/os: linux
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccount: prometheus-prometheus-node-exporter
+      serviceAccountName: prometheus-prometheus-node-exporter
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      volumes:
+      - hostPath:
+          path: /proc
+          type: ""
+        name: proc
+      - hostPath:
+          path: /sys
+          type: ""
+        name: sys
+      - hostPath:
+          path: /
+          type: ""
+        name: root
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+status:
+  currentNumberScheduled: 13
+  desiredNumberScheduled: 13
+  numberAvailable: 13
+  numberMisscheduled: 0
+  numberReady: 13
+  observedGeneration: 1
+  updatedNumberScheduled: 13

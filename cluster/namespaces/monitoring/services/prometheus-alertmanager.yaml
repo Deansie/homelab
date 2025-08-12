@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: monitoring
+  creationTimestamp: "2025-06-25T20:53:04Z"
+  labels:
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/version: v0.28.1
+    helm.sh/chart: alertmanager-1.21.0
+  name: prometheus-alertmanager
+  namespace: monitoring
+  resourceVersion: "1677344"
+  uid: ae008fff-4edc-449c-a364-438a58f0ea60
+spec:
+  clusterIP: 10.109.196.189
+  clusterIPs:
+  - 10.109.196.189
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 9093
+    protocol: TCP
+    targetPort: http
+  selector:
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/name: alertmanager
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

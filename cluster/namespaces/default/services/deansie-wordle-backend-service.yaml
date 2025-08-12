@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"deansie-wordle-backend-service","namespace":"default"},"spec":{"ports":[{"port":80,"protocol":"TCP","targetPort":5081}],"selector":{"app":"deansie-wordle-backend"},"type":"ClusterIP"}}
+  creationTimestamp: "2025-07-18T17:18:00Z"
+  name: deansie-wordle-backend-service
+  namespace: default
+  resourceVersion: "7952324"
+  uid: 2708f78d-e1a6-4f08-a8e0-7fe39bf3de59
+spec:
+  clusterIP: 10.108.102.64
+  clusterIPs:
+  - 10.108.102.64
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5081
+  selector:
+    app: deansie-wordle-backend
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

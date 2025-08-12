@@ -1,0 +1,142 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: monitoring
+  creationTimestamp: "2025-06-25T20:53:04Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/version: v0.28.1
+    helm.sh/chart: alertmanager-1.21.0
+  name: prometheus-alertmanager
+  namespace: monitoring
+  resourceVersion: "10562353"
+  uid: ce35153f-f4d9-4907-aea0-ab621dfda370
+spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: prometheus
+      app.kubernetes.io/name: alertmanager
+  serviceName: prometheus-alertmanager-headless
+  template:
+    metadata:
+      annotations:
+        checksum/config: 197f6ddc4a9b6d68621167b1ac2f925165cc390e3d34282609ba818e2cf9199b
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: prometheus
+        app.kubernetes.io/name: alertmanager
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - args:
+        - --storage.path=/alertmanager
+        - --config.file=/etc/alertmanager/alertmanager.yml
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        image: quay.io/prometheus/alertmanager:v0.28.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: alertmanager
+        ports:
+        - containerPort: 9093
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 200m
+            memory: 256Mi
+        securityContext:
+          runAsGroup: 65534
+          runAsNonRoot: true
+          runAsUser: 65534
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/alertmanager
+          name: config
+        - mountPath: /alertmanager
+          name: storage
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccount: prometheus-alertmanager
+      serviceAccountName: prometheus-alertmanager
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+        operator: Exists
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: prometheus-alertmanager
+        name: config
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      name: storage
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  availableReplicas: 1
+  collisionCount: 0
+  currentReplicas: 1
+  currentRevision: prometheus-alertmanager-7994ddffb
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updateRevision: prometheus-alertmanager-7994ddffb
+  updatedReplicas: 1

@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "8"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"deansie-wordle-frontend","namespace":"default"},"spec":{"replicas":4,"selector":{"matchLabels":{"app":"deansie-wordle-frontend"}},"template":{"metadata":{"labels":{"app":"deansie-wordle-frontend"}},"spec":{"containers":[{"image":"192.168.0.82:5000/deansie-wordle-frontend:26","imagePullPolicy":"Always","name":"deansie-wordle-frontend","ports":[{"containerPort":5081}],"readinessProbe":{"httpGet":{"path":"/","port":5081},"initialDelaySeconds":5,"periodSeconds":10},"resources":{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"256Mi"}}}]}}}}
+  creationTimestamp: "2025-07-19T17:59:22Z"
+  generation: 8
+  name: deansie-wordle-frontend
+  namespace: default
+  resourceVersion: "13102690"
+  uid: 76e93170-b471-4a84-98d2-e799b349981b
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 4
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: deansie-wordle-frontend
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: deansie-wordle-frontend
+    spec:
+      containers:
+      - image: 192.168.0.82:5000/deansie-wordle-frontend:26
+        imagePullPolicy: Always
+        name: deansie-wordle-frontend
+        ports:
+        - containerPort: 5081
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 5081
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 4
+  conditions:
+  - lastTransitionTime: "2025-07-29T16:07:48Z"
+    lastUpdateTime: "2025-07-29T16:07:48Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2025-07-19T17:59:22Z"
+    lastUpdateTime: "2025-08-08T09:23:43Z"
+    message: ReplicaSet "deansie-wordle-frontend-c94675bdb" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 8
+  readyReplicas: 4
+  replicas: 4
+  updatedReplicas: 4

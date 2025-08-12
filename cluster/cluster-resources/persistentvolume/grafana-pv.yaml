@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"grafana-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"12Gi"},"local":{"path":"/mnt/grafana-data"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["k8s"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage"}}
+    pv.kubernetes.io/bound-by-controller: "yes"
+  creationTimestamp: "2025-06-25T20:52:16Z"
+  finalizers:
+  - kubernetes.io/pv-protection
+  name: grafana-pv
+  resourceVersion: "1677712"
+  uid: 25b25ca4-76d6-4a98-ae6d-4161a131b3b3
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 12Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: grafana
+    namespace: monitoring
+    resourceVersion: "1676431"
+    uid: a70a6cca-4f7e-4bf4-86d4-d92eb3d49735
+  local:
+    path: /mnt/grafana-data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - k8s
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  volumeMode: Filesystem
+status:
+  phase: Bound
