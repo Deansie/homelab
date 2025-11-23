@@ -19,7 +19,7 @@ This documentation is an ongoing process, and will be update along with changes 
 
 ## Security Awareness regarding GitOps
 
-This repository includes internal IPs (e.g., `192.168.0.201` for Keepalived VIP, `10.244.x.x` for Flannel) and hostnames (e.g., `k8s`, `worker-149`) to serve as the single source of truth for the homelab. These are private within a firewalled LAN, with no public exposure. For demo purposes, this simplifies the GitOps workflow with FluxCD. In production, IPs/hostnames would be sanitized (e.g., `<VIP>`) and sensitive data encrypted (e.g., Sealed Secrets). This trade-off showcases transparency while acknowledging secure practices.The repository is managed by **FluxCD**, with pull requests visible publicly to showcase collaborative GitOps workflows.
+This repository includes internal IPs (e.g., `192.168.0.201` for Keepalived VIP, `10.244.x.x` for Flannel) and hostnames (e.g., `k8s`, `worker-149`) to serve as the single source of truth for the homelab. These are private within a firewalled LAN, with no public exposure. For demo purposes, this simplifies the GitOps workflow with FluxCD. In production, IPs/hostnames would be sanitized (e.g., `<VIP>`) and sensitive data encrypted (e.g., Sealed Secrets). This trade-off showcases transparency while acknowledging secure practices.The repository is planned to be managed by **FluxCD**, with pull requests visible publicly to showcase collaborative GitOps workflows.
 
 ## Future Implementations
 
