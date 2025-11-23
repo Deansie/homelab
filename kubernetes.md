@@ -38,6 +38,7 @@ Kubernetes is deployed atop **Proxmox virtual machines**, enabling resilient inf
 - `ingress-nginx`: Ingress controller management
 - `kube-system`: K8s infrastructure (coredns, kube-proxy, flannel, etc.)
 - `monitoring`: Prometheus, Grafana, node exporters
+- `openebs`: OpenEBS components for dynamic storage provisioning (e.g., localpv-provisioner, ndm-operator)
 
 ***
 
@@ -54,8 +55,8 @@ Kubernetes is deployed atop **Proxmox virtual machines**, enabling resilient inf
 
 ### Storage
 
-- **Persistent Volumes:** Configured to ZFS-pool (tank)
-- **Volume Provisioning:** Managed by PVCs
+- **Persistent Volumes:** Configured to ZFS-pool (tank), with dynamic provisioning via OpenEBS
+- **Volume Provisioning:** Managed by PVCs, with automatic dynamic allocation using `openebs-localpv-provisioner` for local persistent volumes and `openebs-ndm-operator` for node device management and discovery
 
 
 ### Monitoring \& Observability
@@ -73,7 +74,10 @@ Applications scheduled on worker nodes:
 
 - **deansie-wordle-backend/frontend:**  Web application
 - **kvikkjokk-nextjs:** Next.js server-side application
+- **jakartaee-pet-adoption:** Jakarta-EE web application
+- **spring-pet-adoption:** Spring Boot web application
 - **MongoDB:** Database as deployment with persistent volumes
+- **MySQL (InnoDB HA Cluster):** High-availability MySQL deployment using InnoDB storage engine, configured for replication and failover across multiple pods with persistent volumes
 - **ingress-nginx:** Central HTTP routing for all exposed services
 
 ***
@@ -117,9 +121,9 @@ http://192.168.0.201:30080 (keepalived VIP)
 ## DevOps Skill Highlights
 
 - **Infrastructure as Code:** Use of logical node labels, overlay networking, monitoring stack, and HA primitives
-- **Hybrid HA Design:** Integration of Linux-native keepalived (VRRP) with Kubernetes multi-master
+- **Hybrid HA Design:** Integration of Linux-native keepalived (VRRP) with Kubernetes multi-master, extended to stateful services like MySQL HA cluster
 - **Operational Visibility:** Prometheus, Grafana, node exporters, and centralized logging
-- **Resilience Focus:** Designed for both hardware and node/cluster service failure scenarios, with ongoing improvements to backup storage for enhanced disaster recovery.
+- **Resilience Focus:** Designed for both hardware and node/cluster service failure scenarios, with dynamic storage provisioning via OpenEBS and ongoing improvements to backup storage for enhanced disaster recovery.
 
 ***
 
