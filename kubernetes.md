@@ -39,6 +39,7 @@ Kubernetes is deployed atop **Proxmox virtual machines**, enabling resilient inf
 - `kube-system`: K8s infrastructure (coredns, kube-proxy, flannel, etc.)
 - `monitoring`: Prometheus, Grafana, node exporters
 - `openebs`: OpenEBS components for dynamic storage provisioning (e.g., localpv-provisioner, ndm-operator)
+- `kafka`: Apache Kafka cluster (KRaft mode) and management tools
 
 ***
 
@@ -79,6 +80,8 @@ Applications scheduled on worker nodes:
 - **spring-pet-adoption:** Spring Boot web application
 - **MongoDB:** Database as deployment with persistent volumes
 - **MySQL (InnoDB HA Cluster):** High-availability MySQL deployment using InnoDB storage engine, configured for replication and failover across multiple pods with persistent volumes
+- **Apache Kafka (KRaft Mode):** Event streaming platform managed by Strimzi operator, with 3 mixed broker-controller nodes for HA quorum, low-resource configuration for small workloads, using OpenEBS for persistent logs
+- **Kafka UI:** Web-based interface for Kafka management (topic creation, message production/consumption, monitoring), secured with basic HTTP auth via Ingress
 - **ingress-nginx:** Central HTTP routing for all exposed services
 
 ***
@@ -108,6 +111,8 @@ http://192.168.0.201:30080 (keepalived VIP)
 - **Control Plane:** HA, automatic failover with multi-master/etcd quorum and keepalived VIP
 - **Worker Nodes:** Hardware resilience, automatic scheduling/recovery
 - **Network:** Flannel overlay, keeps internal traffic reliable and isolated
+- **Storage:** Enhanced with OpenEBS for dynamic PV provisioning, improving resilience for stateful workloads like databases and Kafka logs
+- **Messaging:** Kafka KRaft provides quorum-based HA (3 nodes, replication factor 3), with affinity rules spreading brokers across physical hosts (preference for battery-backed host3 for power outage resilience); survives node failures with automatic leader election and log recovery
 - **External Exposure:** NodePort is robust but does not provide native TCP/HTTP L4/L7 load balancing, which is sufficient for current workload scale but may be augmented with MetalLB for future growth.
 - **Backup:** Daily etcd and manifest backups run directly on `k8s-cp3` via a root-owned scheduled cron job. The script performs:
     - Secure encrypted snapshot of etcd (`etcdctl snapshot save`) with TLS certificates across all cluster endpoints.
@@ -123,7 +128,7 @@ http://192.168.0.201:30080 (keepalived VIP)
 
 - **Infrastructure as Code:** Use of logical node labels, overlay networking, monitoring stack, and HA primitives
 - **Hybrid HA Design:** Integration of Linux-native keepalived (VRRP) with Kubernetes multi-master, extended to stateful services like MySQL HA cluster
-- **Operational Visibility:** Prometheus, Grafana, node exporters, centralized logging, and k9s for interactive management and observability
+- **Operational Visibility:** Prometheus, Grafana, node exporters, centralized logging, and k9s for interactive management and observability. Kafka UI for messaging-specific insights.
 - **Resilience Focus:** Designed for both hardware and node/cluster service failure scenarios, with dynamic storage provisioning via OpenEBS and ongoing improvements to backup storage for enhanced disaster recovery.
 
 ***
