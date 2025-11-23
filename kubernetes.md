@@ -65,6 +65,7 @@ Kubernetes is deployed atop **Proxmox virtual machines**, enabling resilient inf
 - **Grafana:** Cluster/project dashboards for visualization
 - **Logs:** Ingress, system, and workload logs accessible via kubectl
 - **Node Exporter:** Hardware/system metrics for each node
+- **k9s:** Terminal-based UI installed on client machines for interactive cluster access, management, and enhanced observability (e.g., resource viewing, log inspection, and troubleshooting)
 
 ***
 
@@ -122,7 +123,7 @@ http://192.168.0.201:30080 (keepalived VIP)
 
 - **Infrastructure as Code:** Use of logical node labels, overlay networking, monitoring stack, and HA primitives
 - **Hybrid HA Design:** Integration of Linux-native keepalived (VRRP) with Kubernetes multi-master, extended to stateful services like MySQL HA cluster
-- **Operational Visibility:** Prometheus, Grafana, node exporters, and centralized logging
+- **Operational Visibility:** Prometheus, Grafana, node exporters, centralized logging, and k9s for interactive management and observability
 - **Resilience Focus:** Designed for both hardware and node/cluster service failure scenarios, with dynamic storage provisioning via OpenEBS and ongoing improvements to backup storage for enhanced disaster recovery.
 
 ***
